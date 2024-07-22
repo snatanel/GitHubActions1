@@ -1,30 +1,45 @@
-name: JFrog CLI Integration
+name: Push Build to Artifactory
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+ build:
+   runs-on: ubuntu-latest
+  
+   steps:
+   # This action checks out the code from the repository
+   - name: Checkout Code
+     uses: actions/checkout@v2
+    
+   # This action sets up the JFrog CLI with the Artifactory URL and access token     
+   - uses: jfrog/setup-jfrog-cli@v4
+     env:
+       JF_URL: ${{ vars.ARTIFACTORY_URL }}
+       JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} 
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+   # This command adds a new server configuration to the JFrog CLI, as an alternative for using the setup-jfrog-cli action    
+   - run: |
+       export SERVER_ID="test"
+       jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
 
-      - name: Set up JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v2
-        with:
-          version: 'latest'
 
-      - name: Configure JFrog CLI
-        run: |
-          jfrog rt config --url=$JFROG_URL --user=$JFROG_USER --password=$JFROG_PASSWORD
-        env:
-          JFROG_URL: ${{ secrets.JFROG_URL }}
-          JFROG_USER: ${{ secrets.JFROG_USER }}
-          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+   # This action creates a new test file and uploads it to Artifactory, if build_name and build_number are omitted GitHub run default are used     
+   - name: Push Build to Artifactory
+     run: |
+       echo "test file " > test.txt
+       export BUILD_NAME="my-build"
+       export BUILD_MODULE="my-module"
+       export BUILD_NUMBER="1"
 
-      - name: Upload artifact to Artifactory
-        run: jfrog rt upload "path/to/your/artifact" "repository/path"
+
+       export PATH_TO_DIRECTORY="name/version/dates"
+      
+       jf rt upload "test.txt" example-repo-local/$PATH_TO_DIRECTORY --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+
+
+   # This action publishes the build information to Artifactory and deletes older builds
+   - name: Build to Artifactory
+     run: |
+       jf rt build-publish $BUILD_NAME $BUILD_NUMBER
+     
+       jf rt bdi c --max-builds=1
