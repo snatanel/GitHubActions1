@@ -1,0 +1,30 @@
+name: JFrog CLI Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v2
+        with:
+          version: 'latest'
+
+      - name: Configure JFrog CLI
+        run: |
+          jfrog rt config --url=$JFROG_URL --user=$JFROG_USER --password=$JFROG_PASSWORD
+        env:
+          JFROG_URL: ${{ secrets.JFROG_URL }}
+          JFROG_USER: ${{ secrets.JFROG_USER }}
+          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+
+      - name: Upload artifact to Artifactory
+        run: jfrog rt upload "path/to/your/artifact" "repository/path"
