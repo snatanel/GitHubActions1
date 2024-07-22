@@ -25,7 +25,7 @@ jobs:
    # jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
    - run: |
        export SERVER_ID="test"
-      
+       jf rt ping
        jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
 
    # This action creates a new test file and uploads it to Artifactory, if build_name and build_number are omitted GitHub run default are used     
