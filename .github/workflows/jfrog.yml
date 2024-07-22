@@ -24,6 +24,7 @@ jobs:
    # This command adds a new server configuration to the JFrog CLI, as an alternative for using the setup-jfrog-cli action    
    # jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
    - run: |
+       jf -v
        export SERVER_ID="test"
        jf rt ping
        jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
