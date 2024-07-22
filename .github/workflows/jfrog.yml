@@ -18,8 +18,8 @@ jobs:
        JF_URL: ${{ vars.ARTIFACTORY_URL }}
        JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} 
        URL: ${{ vars.ARTIFACTORY_URL }}
-       JFROG_USER: ${{ secrets.JF_USER }}
-       JFROG_PASSWORD: ${{ secrets.JF_PASSWORD }}
+       JF_USER: ${{ secrets.JFROG_USER }}
+       JF_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
 
    # This command adds a new server configuration to the JFrog CLI, as an alternative for using the setup-jfrog-cli action    
    # jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
