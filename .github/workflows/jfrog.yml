@@ -1,4 +1,3 @@
-# Example from: https://jfrog.com/help/r/artifactory-how-to-connect-and-publish-simple-build-using-github-action-with-jfrog-cli/artifactory-how-to-connect-and-publish-simple-build-using-github-action-with-jfrog-cli
 name: Push Build to Artifactory
 
 on: [push]
@@ -8,11 +7,9 @@ jobs:
    runs-on: ubuntu-latest
   
    steps:
-   # This action checks out the code from the repository
    - name: Checkout Code
      uses: actions/checkout@v4
     
-   # This action sets up the JFrog CLI with the Artifactory URL and access token     
    - name: Setup JFrog CLI
      uses: jfrog/setup-jfrog-cli@v4
      env:
@@ -22,16 +19,13 @@ jobs:
        JF_USER: ${{ secrets.JFROG_USER }}
        JF_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
 
-   # This command adds a new server configuration to the JFrog CLI, as an alternative for using the setup-jfrog-cli action    
-   # jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
    - name: Run JFrog CLI
      run: |
        jf -v
        export SERVER_ID="test"
        jf rt ping
-       jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
+       # jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
 
-   # This action creates a new test file and uploads it to Artifactory, if build_name and build_number are omitted GitHub run default are used     
    - name: Push Build to Artifactory
      run: |
        echo "test file " > test.txt
