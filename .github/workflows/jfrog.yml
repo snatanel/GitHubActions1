@@ -1,3 +1,4 @@
+# Example from: https://jfrog.com/help/r/artifactory-how-to-connect-and-publish-simple-build-using-github-action-with-jfrog-cli/artifactory-how-to-connect-and-publish-simple-build-using-github-action-with-jfrog-cli
 name: Push Build to Artifactory
 
 on: [push]
@@ -36,7 +37,7 @@ jobs:
 
        export PATH_TO_DIRECTORY="name/version/dates"
       
-       jf rt upload "test.txt" example-repo-local/$PATH_TO_DIRECTORY --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       jf rt upload "test.txt" ./$PATH_TO_DIRECTORY --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
 
 
    # This action publishes the build information to Artifactory and deletes older builds
