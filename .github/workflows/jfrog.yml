@@ -41,6 +41,9 @@ jobs:
    # This action publishes the build information to Artifactory and deletes older builds
    - name: Build to Artifactory
      run: |
+       export BUILD_NAME="simon-github-actions-build"
+       export BUILD_MODULE="my-module"
+       export BUILD_NUMBER="1"
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=1
