@@ -18,13 +18,15 @@ jobs:
        JF_URL: ${{ vars.ARTIFACTORY_URL }}
        JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} 
        URL: ${{ vars.ARTIFACTORY_URL }}
+       JFROG_USER: ${{ secrets.JF_USER }}
+       JFROG_PASSWORD: ${{ secrets.JF_PASSWORD }}
 
    # This command adds a new server configuration to the JFrog CLI, as an alternative for using the setup-jfrog-cli action    
    # jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
    - run: |
        export SERVER_ID="test"
       
-       jf c add $SERVER_ID --url=$URL --access-token=JF_ACCESS_TOKEN --interactive=false
+       jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
 
    # This action creates a new test file and uploads it to Artifactory, if build_name and build_number are omitted GitHub run default are used     
    - name: Push Build to Artifactory
