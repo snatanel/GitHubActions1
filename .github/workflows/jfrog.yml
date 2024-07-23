@@ -47,5 +47,5 @@ jobs:
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=1
-       jf rt upload "test.txt" simon-docker-local --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER --props="first_name=simon;last_name=natanel;"
+       jf rt upload "test.txt" simon-docker-local $BUILD_NAME $BUILD_NUMBER --props="first_name=simon;last_name=natanel;"
 
