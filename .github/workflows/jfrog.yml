@@ -36,7 +36,7 @@ jobs:
 
        export PATH_TO_DIRECTORY="name/version/dates"
       
-       jf rt upload "test.txt" st-docker-local
+       jf rt upload "test.txt" st-docker-local --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
 
    # This action publishes the build information to Artifactory and deletes older builds
    # jf rt build-add-dependencies "simon-github-actions-build" "1" --from-rt "simon-generic/common/test.txt"
@@ -47,4 +47,4 @@ jobs:
        export BUILD_NUMBER="1"
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
-       jf rt bdi c --max-builds=1
+       jf rt bdi c --max-builds=100
