@@ -18,7 +18,7 @@ jobs:
        URL: ${{ vars.ARTIFACTORY_URL }}
        JF_USER: ${{ secrets.JFROG_USER }}
        JF_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
-
+       JF_REPO: ${{ vars.JFROG_REPO }}
    - name: Run JFrog CLI
      run: |
        jf -v
@@ -36,8 +36,8 @@ jobs:
 
        export PATH_TO_DIRECTORY="name/version/dates"
       
-       jf rt upload "test.txt" st-docker-local
-
+       jf rt upload "test.txt" simon-github-npm
+       
    # This action publishes the build information to Artifactory and deletes older builds
    - name: Build to Artifactory
      run: |
