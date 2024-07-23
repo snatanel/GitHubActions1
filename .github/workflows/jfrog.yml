@@ -44,6 +44,7 @@ jobs:
        export BUILD_NAME="simon-github-actions-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
+       jfrog rt build-add-artifact $BUILD_NAME $BUILD_NUMBER st-docker-local/busybox/latest/manifest.json
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=1
