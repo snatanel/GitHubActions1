@@ -37,6 +37,7 @@ jobs:
        export PATH_TO_DIRECTORY="name/version/dates"
       
        jf rt upload "test.txt" st-docker-local
+       jf rt build-add-dependencies my-build 1 "st-docker-local/busybox/latest/manifest.json"
 
    # This action publishes the build information to Artifactory and deletes older builds
    - name: Build to Artifactory
