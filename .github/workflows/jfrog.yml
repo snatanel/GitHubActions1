@@ -1,4 +1,4 @@
-name: Push Build to Artifactory
+name: Simon - Push Git Build
 
 on: [push]
 
