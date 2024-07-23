@@ -39,12 +39,12 @@ jobs:
        jf rt upload "test.txt" st-docker-local
 
    # This action publishes the build information to Artifactory and deletes older builds
+   # jf rt build-add-dependencies "simon-github-actions-build" "1" --from-rt "simon-generic/common/test.txt"
    - name: Build to Artifactory
      run: |
        export BUILD_NAME="simon-github-actions-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
-       jf rt build-add-dependencies $BUILD_NAME $BUILD_NUMBER --from-rt "simon-generic/common/test.txt"
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=1
