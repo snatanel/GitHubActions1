@@ -1,4 +1,4 @@
-name: Simon - Push Git Build
+name: simon-github-build
 
 on: [push]
 
@@ -26,10 +26,10 @@ jobs:
        jf rt ping
        # jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
 
-   - name: GitHub Build - Simon
+   - name: simon-github-build
      run: |
        echo "test file " > test.txt
-       export BUILD_NAME="simon-github-actions-build"
+       export BUILD_NAME="simon-github-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
 
@@ -40,9 +40,9 @@ jobs:
 
    # This action publishes the build information to Artifactory and deletes older builds
    # jf rt build-add-dependencies "simon-github-actions-build" "1" --from-rt "simon-generic/common/test.txt"
-   - name: Build to Artifactory
+   - name: simon-github-build
      run: |
-       export BUILD_NAME="simon-github-actions-build"
+       export BUILD_NAME="simon-github-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
