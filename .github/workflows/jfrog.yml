@@ -1,4 +1,4 @@
-name: Push Build to Artifactory
+name: Push Build to Artifactory11
 
 on: [push]
 
