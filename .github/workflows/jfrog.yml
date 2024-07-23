@@ -36,7 +36,7 @@ jobs:
 
        export PATH_TO_DIRECTORY="name/version/dates"
       
-       jf rt upload "test.txt" simon-github-npm
+   # jf rt upload "test.txt" simon-docker-local 
        
    # This action publishes the build information to Artifactory and deletes older builds
    - name: Build to Artifactory
@@ -47,3 +47,5 @@ jobs:
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=1
+       jf rt upload "test.txt" simon-docker-local --build-name=$BUILD_NAME --build-number=$BUILD_NUMBER --props="first_name=simon;last_name=natanel;"
+
