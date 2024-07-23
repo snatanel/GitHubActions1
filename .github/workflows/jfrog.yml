@@ -45,7 +45,7 @@ jobs:
        export BUILD_NAME="simon-github-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
-       jf rt build-add-dependencies --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE --from-rt "simon-generic/common/common.txt"
+       jf rt build-add-dependencies $BUILD_NAME $BUILD_NUMBER $BUILD_MODULE --from-rt "simon-generic/common/common.txt"
        jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
        jf rt bdi c --max-builds=100
