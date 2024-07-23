@@ -1,4 +1,4 @@
-name: Push Build to Artifactory11
+name: Push Build to Artifactory
 
 on: [push]
 
@@ -26,7 +26,7 @@ jobs:
        jf rt ping
        # jf c add $SERVER_ID --url=$URL --user $JFROG_USER --password $JFROG_PASSWORD --interactive=false
 
-   - name: Push Build to Artifactory
+   - name: GitHub Build - Simon
      run: |
        echo "test file " > test.txt
        export BUILD_NAME="simon-github-actions-build"
