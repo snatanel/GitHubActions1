@@ -29,7 +29,7 @@ jobs:
    - name: simon-github-build
      run: |
        echo "test file " > test2.txt
-       export BUILD_NAME="simon-github-build"
+       export BUILD_NAME="simon-github-build2"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
 
