@@ -49,10 +49,15 @@ jobs:
      
        jf rt bdi c --max-builds=100
 
-   - name: 📝 Output collected Data
+   - name: Generate changelog
      run: |
-          echo "Changes since ${{ steps.changes.outputs.last-tag }}:"
-          git log --pretty=format:'{%n  "commit": "%H",%n  "abbreviated_commit": "%h",%n  "tree": "%T",%n  "abbreviated_tree": "%t",%n  "parent": "%P",%n  "abbreviated_parent": "%p",%n  "refs": "%D",%n  "encoding": "%e",%n  "subject": "%s",%n  "sanitized_subject_line": "%f",%n  "body": "%b",%n  "commit_notes": "%N",%n  "verification_flag": "%G?",%n  "signer": "%GS",%n  "signer_key": "%GK",%n  "author": {%n    "name": "%aN",%n    "email": "%aE",%n    "date": "%aD"%n  },%n  "committer": {%n    "name": "%cN",%n    "email": "%cE",%n    "date": "%cD"%n  }%n},' ${{ steps.changes.outputs.last-tag }}..HEAD > changelogs_provenance.json
-          cat changelogs_provenance.json
-          echo changelogs_provenance.json
+       echo "Changes since ${{ steps.changes.outputs.last-tag }}:"
+       git log --pretty=format:'{%n  "commit": "%H",%n  "abbreviated_commit": "%h",%n  "tree": "%T",%n  "abbreviated_tree": "%t",%n  "parent": "%P",%n  "abbreviated_parent": "%p",%n  "refs": "%D",%n  "encoding": "%e",%n  "subject": "%s",%n  "sanitized_subject_line": "%f",%n  "body": "%b",%n  "commit_notes": "%N",%n  "verification_flag": "%G?",%n  "signer": "%GS",%n  "signer_key": "%GK",%n  "author": {%n    "name": "%aN",%n    "email": "%aE",%n    "date": "%aD"%n  },%n  "committer": {%n    "name": "%cN",%n    "email": "%cE",%n    "date": "%cD"%n  }%n},' ${{ steps.changes.outputs.last-tag }}..HEAD > changelogs_provenance.json
+
+   - name: Check changelog file
+     run: cat changelogs_provenance.json
+ 
+   - name: Validate JSON
+     run: jq '.' changelogs_provenance.json
+
           jf rt upload changelogs_provenance.json simon-generic
