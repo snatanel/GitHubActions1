@@ -54,5 +54,5 @@ jobs:
           changelog_content=$(echo ${{ steps.changelog.outputs.changelog }})
           modified_log=$(echo ${{ steps.modified.outputs.log }})
 
-          jf rt upload modified_log st-docker-local 
+          jf rt "upload modified_log" st-docker-local 
 
