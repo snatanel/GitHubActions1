@@ -49,19 +49,10 @@ jobs:
      
        jf rt bdi c --max-builds=100
 
-   - name: Get Last Tag # Ensure this step correctly sets the last-tag output
-     id: changes
-     run: echo "::set-output name=last-tag::$(git describe --tags --abbrev=0)"
-        
-   - name: Generate changelog
-     id: changelog
-     uses: metcalfc/changelog-generator@v4.3.1
-     with:
-       myToken: ${{ secrets.GITHUB_TOKEN }}
-
-   - name: Get the changelog
+   - name: Run your script
      run: |
-          cat << "EOF"
-          ${{ steps.changelog.outputs.changelog }}
-          EOF
-          echo ${{ steps.modified.outputs.log }}
+          changelog_content=$(echo ${{ steps.changelog.outputs.changelog }})
+          modified_log=$(echo ${{ steps.modified.outputs.log }})
+
+          jf rt upload modified_log st-docker-local 
+
