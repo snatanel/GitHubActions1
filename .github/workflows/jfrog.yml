@@ -51,7 +51,7 @@ jobs:
 
    - name: Run your script
      run: |
-          changelog_content=$(echo ${{ steps.changelog.outputs.changelog }})
+          changelog_content=$(echo ${{ steps.changelog.outputs.last-tag }})
           modified_log=$(echo ${{ steps.modified.outputs.log }})
 
           echo "$changelog_content"
