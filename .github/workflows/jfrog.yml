@@ -64,5 +64,4 @@ jobs:
           cat << "EOF"
           ${{ steps.changelog.outputs.changelog }}
           EOF
-          echo EOF
-          echo "The output changelog for simon is: ${{ steps.modified.outputs.log }}"
+          echo ${{ steps.modified.outputs.log }}
