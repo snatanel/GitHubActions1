@@ -49,15 +49,20 @@ jobs:
      
        jf rt bdi c --max-builds=100
 
+   - name: Get Last Tag # Ensure this step correctly sets the last-tag output
+     id: changes
+     run: echo "::set-output name=last-tag::$(git describe --tags --abbrev=0)"
+        
    - name: Generate changelog
+     id: changelog
+     uses: metcalfc/changelog-generator@v4.3.1
+     with:
+       myToken: ${{ secrets.GITHUB_TOKEN }}
+
+   - name: Get the changelog
      run: |
-       echo "Changes since ${{ steps.changes.outputs.last-tag }}:"
-       git log --pretty=format:'{%n  "commit": "%H",%n  "abbreviated_commit": "%h",%n  "tree": "%T",%n  "abbreviated_tree": "%t",%n  "parent": "%P",%n  "abbreviated_parent": "%p",%n  "refs": "%D",%n  "encoding": "%e",%n  "subject": "%s",%n  "sanitized_subject_line": "%f",%n  "body": "%b",%n  "commit_notes": "%N",%n  "verification_flag": "%G?",%n  "signer": "%GS",%n  "signer_key": "%GK",%n  "author": {%n    "name": "%aN",%n    "email": "%aE",%n    "date": "%aD"%n  },%n  "committer": {%n    "name": "%cN",%n    "email": "%cE",%n    "date": "%cD"%n  }%n},' ${{ steps.changes.outputs.last-tag }}..HEAD > changelogs_provenance.json
-
-   - name: Check changelog file
-     run: cat changelogs_provenance.json
- 
-   - name: Validate JSON
-     run: jq '.' changelogs_provenance.json
-
-          jf rt upload changelogs_provenance.json simon-generic
+          cat << "EOF"
+          ${{ steps.changelog.outputs.changelog }}
+          EOF
+          echo EOF
+          echo "The output changelog for simon is: ${{ steps.modified.outputs.log }}"
