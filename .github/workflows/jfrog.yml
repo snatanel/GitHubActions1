@@ -28,24 +28,23 @@ jobs:
 
    - name: simon-github-build
      run: |
-       echo "test file " > test2.txt
-       export BUILD_NAME="simon-github-build2"
+       echo "test file " > test.txt
+       export BUILD_NAME="simon-github-build"
        export BUILD_MODULE="my-module"
        export BUILD_NUMBER="1"
 
 
        export PATH_TO_DIRECTORY="name/version/dates"
       
-       jf rt upload "test2.txt" st-docker-local --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       jf rt upload "test.txt" st-docker-local --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
 
    # This action publishes the build information to Artifactory and deletes older builds
-   # jf rt build-add-dependencies "simon-github-actions-build" "1" --from-rt "simon-generic/common/test.txt"
-   #  - name: simon-github-build
-   #    run: |
-   #    export BUILD_NAME="simon-github-build"
-   #   export BUILD_MODULE="my-module"
-   #  export BUILD_NUMBER="1"
-   #  jf rt build-add-dependencies $BUILD_NAME $BUILD_NUMBER "simon-generic/common/common.txt" --module $BUILD_MODULE --from-rt
-   #  jf rt build-publish $BUILD_NAME $BUILD_NUMBER
+   - name: simon-github-build
+     run: |
+       export BUILD_NAME="simon-github-build"
+       export BUILD_MODULE="my-module"
+       export BUILD_NUMBER="1"
+       jf rt build-add-dependencies $BUILD_NAME $BUILD_NUMBER "simon-generic/common/common.txt" --module $BUILD_MODULE --from-rt
+       jf rt build-publish $BUILD_NAME $BUILD_NUMBER
      
-   #  jf rt bdi c --max-builds=100
+       jf rt bdi c --max-builds=100
