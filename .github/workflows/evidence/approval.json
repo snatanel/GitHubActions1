@@ -1,0 +1,21 @@
+{
+    "approval": {
+      "approvalStatus": "approved",
+      "approvalNotes": "All checks passed. Ready for deployment.",
+      "changes": "Bug fixes and minor feature enhancements",  
+  
+      "approvers": [
+        {
+          "id": "abcdef1234567890abcdef1234567890",
+          "name": "John Doe",
+          "title": "Release manager",
+          "email": "john.doe@example.com",
+          "status": "approved"
+        }
+    
+      ],
+
+  
+      "customData": "My custom data..."
+   }
+}
